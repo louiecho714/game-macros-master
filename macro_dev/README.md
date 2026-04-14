@@ -1,18 +1,16 @@
 # Macro Dev
 
-這個資料夾是獨立開發區，不會動到你原本的 `main.go`。
-目前版本直接使用 Windows API，不依賴額外第三方套件。
+`macro_dev` 是一個使用 Go 撰寫的 Windows 巨集工具，透過 Windows API 模擬鍵盤與滑鼠操作。
 
 ## 功能
 
 - 支援多組 `Macro` 設定
-- 支援 `Ctrl + 1/2/3` 快速切換巨集
-- 支援 `Ctrl + F1` 開始
-- 支援 `Ctrl + F2` 暫停
-- 支援鍵盤按鍵
-- 支援滑鼠左鍵與右鍵
-- 每個動作可分開設定按住時間與間隔時間
-- `RepeatCount = 0` 代表無限循環
+- 支援 `Ctrl + 1/2/3` 切換巨集
+- 支援 `Ctrl + F1` 啟動巨集
+- 支援 `Ctrl + F2` 停止巨集
+- 支援模擬鍵盤按鍵
+- 支援滑鼠左鍵與右鍵點擊
+- `RepeatCount = 0` 代表無限循環，直到手動停止
 
 ## 執行
 
@@ -22,26 +20,38 @@
 go run .\macro_dev
 ```
 
-## 熱鍵
+## Build EXE
 
-- `Ctrl + 1`: 切換到第 1 組巨集
-- `Ctrl + 2`: 切換到第 2 組巨集
-- `Ctrl + 3`: 切換到第 3 組巨集
-- `Ctrl + F1`: 執行目前選中的巨集
-- `Ctrl + F2`: 暫停目前巨集
+Windows 下可直接把 `macro_dev/main.go` 打包成 `.exe`：
 
-如果切換時剛好正在執行，程式會先停止目前巨集，再切換到新的設定。
+```powershell
+go build -o macro_dev.exe ./macro_dev
+```
 
-## 設定方式
+產生的檔案會在專案根目錄：
 
-編輯 `macro_dev/main.go` 裡的 `macros := []Macro{ ... }`。
+```text
+game-macros-master\macro_dev.exe
+```
 
-## 欄位說明
+## 操作方式
 
-- `Hold`: 按鈕按下後持續多久才放開，單位是毫秒
-- `Interval`: 這個動作做完後，等多久再做下一個動作，單位是毫秒
-- `LoopDelayMS`: 每一輪跑完後，等多久再開始下一輪，單位是毫秒
-- `RepeatCount`: 巨集執行次數，`0` 代表無限循環，直到你按 `Ctrl + F2`
+- `Ctrl + 1`：切換到第 1 組巨集
+- `Ctrl + 2`：切換到第 2 組巨集
+- `Ctrl + 3`：切換到第 3 組巨集
+- `Ctrl + F1`：啟動目前選中的巨集
+- `Ctrl + F2`：停止目前執行中的巨集
+
+## 巨集設定
+
+請編輯 `macro_dev/main.go` 裡的 `macros := []Macro{ ... }`。
+
+## 參數說明
+
+- `Hold`：按鍵或滑鼠按住的時間，單位為毫秒
+- `Interval`：單一步驟執行後的等待時間，單位為毫秒
+- `LoopDelayMS`：每輪巨集執行完後的等待時間
+- `RepeatCount`：巨集重複次數，`0` 代表持續執行直到按下 `Ctrl + F2`
 
 ## 範例
 
@@ -70,15 +80,13 @@ macros := []Macro{
 }
 ```
 
-## 可用動作
+## 支援的動作
 
 - `ActionKey`
 - `ActionLeftClick`
 - `ActionRightClick`
 
-## 可用按鍵
-
-目前內建：
+## 支援的按鍵
 
 - `0` 到 `9`
 - `a` 到 `z`
@@ -88,4 +96,4 @@ macros := []Macro{
 - `esc`
 - `f1` 到 `f12`
 
-如果你需要更多按鍵，我可以再幫你補進去。
+如果要新增更多按鍵，可以在 `virtualKeyTable` 中擴充。
