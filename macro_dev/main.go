@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"log"
-	"syscall"
 	"sync/atomic"
+	"syscall"
 	"time"
 )
 
@@ -107,34 +107,29 @@ func main() {
 	macros := []Macro{
 		{
 			Name:        "farm-basic",
-			LoopDelayMS: 2000,
+			LoopDelayMS: 200,
 			RepeatCount: 0,
 			Actions: []Action{
-				{Type: ActionKey, Key: "1", Hold: 80, Interval: 500},
-				{Type: ActionKey, Key: "2", Hold: 80, Interval: 500},
-				{Type: ActionKey, Key: "4", Hold: 80, Interval: 500},
-				{Type: ActionRightClick, Hold: 90, Interval: 500},
-			},
-		},
-		{
-			Name:        "boss-burst",
-			LoopDelayMS: 1200,
-			RepeatCount: 0,
-			Actions: []Action{
-				{Type: ActionKey, Key: "1", Hold: 90, Interval: 150},
 				{Type: ActionKey, Key: "2", Hold: 90, Interval: 150},
+				{Type: ActionKey, Key: "4", Hold: 90, Interval: 250},
+				{Type: ActionRightClick, Hold: 80, Interval: 250},
 				{Type: ActionKey, Key: "3", Hold: 90, Interval: 200},
+				{Type: ActionKey, Key: "4", Hold: 90, Interval: 250},
 				{Type: ActionRightClick, Hold: 80, Interval: 250},
 			},
 		},
 		{
-			Name:        "move-and-attack",
-			LoopDelayMS: 800,
+			Name:        "boss-burst",
+			LoopDelayMS: 200,
 			RepeatCount: 0,
 			Actions: []Action{
-				{Type: ActionLeftClick, Hold: 70, Interval: 200},
-				{Type: ActionRightClick, Hold: 70, Interval: 250},
-				{Type: ActionKey, Key: "space", Hold: 100, Interval: 400},
+
+				{Type: ActionKey, Key: "2", Hold: 90, Interval: 150},
+				{Type: ActionKey, Key: "4", Hold: 90, Interval: 150},
+				{Type: ActionRightClick, Hold: 80, Interval: 250},
+				{Type: ActionKey, Key: "3", Hold: 90, Interval: 200},
+				{Type: ActionKey, Key: "4", Hold: 90, Interval: 150},
+				{Type: ActionRightClick, Hold: 80, Interval: 250},
 			},
 		},
 	}

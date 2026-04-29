@@ -32,7 +32,7 @@ go build -o macro_dev.exe ./macro_dev
 
 ```text
 game-macros-master\macro_dev.exe
-```
+```ㄋ
 
 ## 操作方式
 
