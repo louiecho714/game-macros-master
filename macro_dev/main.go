@@ -106,7 +106,7 @@ var (
 func main() {
 	macros := []Macro{
 		{
-			Name:        "farm-basic",
+			Name:        "暗影爪",
 			LoopDelayMS: 200,
 			RepeatCount: 0,
 			Actions: []Action{
@@ -119,15 +119,26 @@ func main() {
 			},
 		},
 		{
-			Name:        "boss-burst",
+			Name:        "爆爆火焰",
 			LoopDelayMS: 200,
 			RepeatCount: 0,
 			Actions: []Action{
 
-				{Type: ActionKey, Key: "2", Hold: 90, Interval: 150},
+				{Type: ActionKey, Key: "3", Hold: 90, Interval: 150},
 				{Type: ActionKey, Key: "4", Hold: 90, Interval: 150},
 				{Type: ActionRightClick, Hold: 80, Interval: 250},
-				{Type: ActionKey, Key: "3", Hold: 90, Interval: 200},
+				{Type: ActionRightClick, Hold: 80, Interval: 250},
+			},
+		},
+		{
+			Name:        "阿公轉圈圈",
+			LoopDelayMS: 200,
+			RepeatCount: 0,
+			Actions: []Action{
+
+				{Type: ActionKey, Key: "1", Hold: 90, Interval: 150},
+				{Type: ActionKey, Key: "2", Hold: 90, Interval: 150},
+				{Type: ActionKey, Key: "3", Hold: 90, Interval: 150},
 				{Type: ActionKey, Key: "4", Hold: 90, Interval: 150},
 				{Type: ActionRightClick, Hold: 80, Interval: 250},
 			},
