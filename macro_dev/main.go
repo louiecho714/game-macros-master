@@ -135,12 +135,16 @@ func main() {
 			LoopDelayMS: 200,
 			RepeatCount: 0,
 			Actions: []Action{
-
+				{Type: ActionKey, Key: "f", Hold: 90, Interval: 250},
 				{Type: ActionKey, Key: "1", Hold: 90, Interval: 250},
+				{Type: ActionRightClick, Hold: 80, Interval: 250},
 				{Type: ActionKey, Key: "2", Hold: 90, Interval: 250},
+				{Type: ActionRightClick, Hold: 80, Interval: 250},
 				{Type: ActionKey, Key: "3", Hold: 90, Interval: 250},
+				{Type: ActionRightClick, Hold: 80, Interval: 250},
 				{Type: ActionKey, Key: "4", Hold: 90, Interval: 250},
-				{Type: ActionKey, Key: "5", Hold: 90, Interval: 250},
+				{Type: ActionRightClick, Hold: 80, Interval: 250},
+				//{Type: ActionKey, Key: "5", Hold: 90, Interval: 250},
 				{Type: ActionRightClick, Hold: 80, Interval: 250},
 			},
 		},
