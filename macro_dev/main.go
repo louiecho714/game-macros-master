@@ -136,10 +136,11 @@ func main() {
 			RepeatCount: 0,
 			Actions: []Action{
 
-				{Type: ActionKey, Key: "1", Hold: 90, Interval: 150},
-				{Type: ActionKey, Key: "2", Hold: 90, Interval: 150},
-				{Type: ActionKey, Key: "3", Hold: 90, Interval: 150},
-				{Type: ActionKey, Key: "4", Hold: 90, Interval: 150},
+				{Type: ActionKey, Key: "1", Hold: 90, Interval: 250},
+				{Type: ActionKey, Key: "2", Hold: 90, Interval: 250},
+				{Type: ActionKey, Key: "3", Hold: 90, Interval: 250},
+				{Type: ActionKey, Key: "4", Hold: 90, Interval: 250},
+				{Type: ActionKey, Key: "5", Hold: 90, Interval: 250},
 				{Type: ActionRightClick, Hold: 80, Interval: 250},
 			},
 		},
@@ -155,46 +156,58 @@ func runHotkeyLoop(macros []Macro) {
 
 	var stop chan struct{}
 	var isRunning atomic.Bool
+	var runID atomic.Uint64
 	selectedIndex := 0
 
 	printUsage(macros, selectedIndex)
 
-	for {
-		if number, ok := detectMacroSwitch(macros); ok {
-			if isRunning.Load() {
-				close(stop)
-				isRunning.Store(false)
-				fmt.Println("已停止目前巨集，準備切換設定")
-			}
+	stopCurrentMacro := func(message string) {
+		if !isRunning.Load() || stop == nil {
+			return
+		}
 
-			selectedIndex = number
-			fmt.Printf("已切換到巨集 [%d]: %s\n", selectedIndex+1, macros[selectedIndex].Name)
-			waitHotkeyRelease(vkCtrl, keyNumberToVK(selectedIndex+1))
+		close(stop)
+		stop = nil
+		runID.Add(1)
+		isRunning.Store(false)
+		if message != "" {
+			fmt.Println(message)
+		}
+	}
+
+	for {
+		if isHotkeyPressed(vkCtrl, vkF2) && isRunning.Load() {
+			stopCurrentMacro("巨集已暫停，目前設定檔保持不變")
+			waitHotkeyRelease(vkCtrl, vkF2)
 		}
 
 		if isHotkeyPressed(vkCtrl, vkF1) && !isRunning.Load() {
 			stop = make(chan struct{})
 			isRunning.Store(true)
+			currentRunID := runID.Add(1)
 			currentMacro := macros[selectedIndex]
 			fmt.Printf("巨集開始執行 [%d]: %s\n", selectedIndex+1, currentMacro.Name)
 
-			go func(m Macro) {
+			go func(m Macro, id uint64, stop <-chan struct{}) {
 				if err := runMacro(m, stop); err != nil {
 					log.Printf("巨集執行失敗: %v\n", err)
 				} else {
 					log.Printf("巨集執行結束: %s\n", m.Name)
 				}
-				isRunning.Store(false)
-			}(currentMacro)
+				if runID.Load() == id {
+					isRunning.Store(false)
+				}
+			}(currentMacro, currentRunID, stop)
 
 			waitHotkeyRelease(vkCtrl, vkF1)
 		}
 
-		if isHotkeyPressed(vkCtrl, vkF2) && isRunning.Load() {
-			close(stop)
-			isRunning.Store(false)
-			fmt.Println("巨集已暫停")
-			waitHotkeyRelease(vkCtrl, vkF2)
+		if !isRunning.Load() && !isKeyDown(vkF1) && !isKeyDown(vkF2) {
+			if number, ok := detectMacroSwitch(macros); ok {
+				selectedIndex = number
+				fmt.Printf("已切換到巨集 [%d]: %s\n", selectedIndex+1, macros[selectedIndex].Name)
+				waitHotkeyRelease(vkCtrl, keyNumberToVK(selectedIndex+1))
+			}
 		}
 
 		time.Sleep(50 * time.Millisecond)
