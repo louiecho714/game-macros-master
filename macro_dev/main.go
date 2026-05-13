@@ -148,6 +148,17 @@ func main() {
 				{Type: ActionRightClick, Hold: 80, Interval: 150},
 			},
 		},
+		{
+			Name:        "大媽打雷",
+			LoopDelayMS: 200,
+			RepeatCount: 0,
+			Actions: []Action{
+				{Type: ActionKey, Key: "1", Hold: 90, Interval: 150},
+				{Type: ActionKey, Key: "2", Hold: 90, Interval: 150},
+				{Type: ActionKey, Key: "3", Hold: 90, Interval: 150},
+				{Type: ActionKey, Key: "4", Hold: 90, Interval: 150},
+			},
+		},
 	}
 
 	runHotkeyLoop(macros)
