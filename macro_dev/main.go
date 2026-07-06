@@ -106,16 +106,13 @@ var (
 func main() {
 	macros := []Macro{
 		{
-			Name:        "暗影爪",
+			Name:        "利爪終局",
 			LoopDelayMS: 200,
 			RepeatCount: 0,
 			Actions: []Action{
-				{Type: ActionKey, Key: "2", Hold: 90, Interval: 150},
-				{Type: ActionKey, Key: "4", Hold: 90, Interval: 250},
-				{Type: ActionRightClick, Hold: 80, Interval: 250},
-				{Type: ActionKey, Key: "3", Hold: 90, Interval: 200},
-				{Type: ActionKey, Key: "4", Hold: 90, Interval: 250},
-				{Type: ActionRightClick, Hold: 80, Interval: 250},
+				{Type: ActionKey, Key: "1", Hold: 90, Interval: 150},
+				{Type: ActionKey, Key: "2", Hold: 90, Interval: 250},
+				{Type: ActionKey, Key: "4", Hold: 90, Interval: 150},
 			},
 		},
 		{
@@ -135,7 +132,7 @@ func main() {
 			LoopDelayMS: 200,
 			RepeatCount: 0,
 			Actions: []Action{
-				{Type: ActionKey, Key: "f", Hold: 90, Interval: 150},
+				//{Type: ActionKey, Key: "f", Hold: 90, Interval: 150},
 				{Type: ActionKey, Key: "1", Hold: 90, Interval: 150},
 				{Type: ActionRightClick, Hold: 80, Interval: 150},
 				{Type: ActionKey, Key: "2", Hold: 90, Interval: 150},
@@ -155,7 +152,10 @@ func main() {
 			Actions: []Action{
 				{Type: ActionKey, Key: "1", Hold: 90, Interval: 150},
 				{Type: ActionKey, Key: "2", Hold: 90, Interval: 150},
-				{Type: ActionKey, Key: "3", Hold: 90, Interval: 150},
+				{Type: ActionKey, Key: "3", Hold: 90, Interval: 250},
+				{Type: ActionKey, Key: "4", Hold: 90, Interval: 150},
+				{Type: ActionKey, Key: "4", Hold: 90, Interval: 150},
+				{Type: ActionKey, Key: "4", Hold: 90, Interval: 150},
 				{Type: ActionKey, Key: "4", Hold: 90, Interval: 150},
 			},
 		},
