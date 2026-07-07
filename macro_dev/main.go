@@ -106,7 +106,6 @@ var (
 func main() {
 	macros := []Macro{
 		{
-<<<<<<< HEAD
 			Name:        "亂抓狼",
 			LoopDelayMS: 200,
 			RepeatCount: 0,
@@ -118,15 +117,6 @@ func main() {
 				{Type: ActionKey, Key: "4", Hold: 90, Interval: 250},
 				{Type: ActionRightClick, Hold: 80, Interval: 250},
 
-=======
-			Name:        "利爪終局",
-			LoopDelayMS: 200,
-			RepeatCount: 0,
-			Actions: []Action{
-				{Type: ActionKey, Key: "1", Hold: 90, Interval: 150},
-				{Type: ActionKey, Key: "2", Hold: 90, Interval: 250},
-				{Type: ActionKey, Key: "4", Hold: 90, Interval: 150},
->>>>>>> 0b6892ce6411a6cbec5ac76736dd723b0e072a2b
 			},
 		},
 		{
